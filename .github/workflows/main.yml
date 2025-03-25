@@ -21,6 +21,9 @@ jobs:
         name: Run linter
         needs: [format]
         runs-on: ubuntu-latest
+        container:
+          image: alpine/flake8:7.1.2
+          options: --cpus="1"
         steps:
           - name: Check out Git repository
             uses: actions/checkout@v3
