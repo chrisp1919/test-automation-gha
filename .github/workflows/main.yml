@@ -41,6 +41,10 @@ jobs:
         steps:
           - name: Check out repository
             uses: actions/checkout@v3
+          - name: Set up Python
+            uses: actions/setup-python@v4
+            with:
+              python-version: '3.x'
           - name: Test with pytest with coverage
             run: |
               pytest --cov=./ --cov-report=xml --cov-report=term-missing
