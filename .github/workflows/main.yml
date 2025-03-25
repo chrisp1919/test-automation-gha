@@ -26,8 +26,29 @@ jobs:
           options: --cpus="1"
         steps:
           - name: Check out Git repository
-            uses: actions/checkout@v3
+            uses: actions/checkout@v4
           - name: Run flake8
             run: flake8 ./ --append-config=./.flake8 --verbose
+          - name: Set up Python
+            uses: actions/setup-python@v5
+            with:
+              python-version: '3.x'
 
+    test:
+        name: Running tests
+        needs: [lint]
+        runs-on: ubuntu-latest
+        steps:
+          - name: Check out repository
+            uses: actions/checkout@v3
+          - name: Test with pytest with coverage
+            run: |
+              pytest --cov=./ --cov-report=xml --cov-report=term-missing
+          - name: Upload coverage to Codecov
+            uses: codecov/codecov-action@v3
+            with:
+              token: ${{ secrets.CODECOV_TOKEN }}
+          - name: Run pylint
+            run: |
+              pylint test_main.py || true
 
