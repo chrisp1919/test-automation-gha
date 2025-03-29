@@ -8,6 +8,7 @@ services:
     command: black .
     volumes:
       - .:/app
+
   linter:
     build:
       context: .
@@ -15,6 +16,7 @@ services:
     command: flake8 .
     volumes:
       - .:/app
+
   tests:
     build:
       context: .
