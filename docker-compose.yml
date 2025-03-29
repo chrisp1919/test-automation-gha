@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+  formatter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: black .
+    volumes:
+      - .:/app
+  linter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: flake8 .
+    volumes:
+      - .:/app
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: pytest
+    volumes:
+      - .:/app
